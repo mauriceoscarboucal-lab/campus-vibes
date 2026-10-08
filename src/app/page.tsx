@@ -153,100 +153,197 @@ export default function Home() {
       </section>
 
       {/* PROCHAINE ÉMISSION — AFFICHE GRAND FORMAT */}
-      {config && dateEmission && (
-        <section className="px-6 pb-16 max-w-6xl mx-auto w-full">
-          <div className="relative rounded-3xl overflow-hidden border border-yellow-400/30">
-            {/* Affiche ou fond dégradé */}
-            {config.prochaine_emission_affiche_url ? (
-              <div className="relative w-full aspect-video md:aspect-[16/7]">
-                <Image
-                  src={config.prochaine_emission_affiche_url}
-                  alt="Affiche prochaine émission"
-                  fill
-                  className="object-cover"
-                  unoptimized
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
+{config && dateEmission && (
+  <section className="px-4 md:px-6 pb-16 max-w-6xl mx-auto w-full">
+    <div className="relative rounded-3xl overflow-hidden border border-yellow-400/30">
+      
+      {/* 🖥️ VERSION DESKTOP — Affichage superposé (comme avant) */}
+      <div className="hidden md:block">
+        {config.prochaine_emission_affiche_url ? (
+          <div className="relative w-full aspect-[16/7]">
+            <Image
+              src={config.prochaine_emission_affiche_url}
+              alt="Affiche prochaine émission"
+              fill
+              className="object-cover"
+              unoptimized
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
+          </div>
+        ) : (
+          <div className="w-full aspect-[16/7] bg-gradient-to-br from-[#0F0F1A] via-[#1A1A2E] to-purple-900/30" />
+        )}
+
+        {/* Contenu superposé (desktop) */}
+        <div className="absolute inset-0 flex flex-col justify-end p-12 text-left">
+          <div className="inline-block self-start bg-red-500 text-white font-bold text-xs px-4 py-1.5 rounded-full mb-4 animate-pulse">
+            🔴 PROCHAINE ÉMISSION
+          </div>
+
+          <h2 className="text-5xl font-extrabold mb-3 drop-shadow-lg">
+            {dateFormatee}
+          </h2>
+
+          {config.prochaine_emission_theme && (
+            <p className="text-white/90 text-xl max-w-3xl mb-2">
+              <strong className="text-yellow-400">Thème :</strong>{" "}
+              {config.prochaine_emission_theme}
+            </p>
+          )}
+
+          {config.prochaine_emission_invites && (
+            <p className="text-white/70 text-base max-w-3xl mb-6">
+              {config.prochaine_emission_invites}
+            </p>
+          )}
+
+          <div className="grid grid-cols-4 gap-3 max-w-lg mb-6">
+            {[
+              { label: "JOURS", value: tempsRestant.jours },
+              { label: "HEURES", value: tempsRestant.heures },
+              { label: "MIN", value: tempsRestant.minutes },
+              { label: "SEC", value: tempsRestant.secondes },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="bg-black/70 backdrop-blur border border-yellow-400/40 rounded-xl py-3"
+              >
+                <div className="text-3xl font-extrabold text-yellow-400">
+                  {String(item.value).padStart(2, "0")}
+                </div>
+                <div className="text-xs text-white/60 mt-1">{item.label}</div>
               </div>
-            ) : (
-              <div className="w-full aspect-video md:aspect-[16/7] bg-gradient-to-br from-[#0F0F1A] via-[#1A1A2E] to-purple-900/30" />
+            ))}
+          </div>
+
+          <div className="flex flex-row gap-3">
+            <Link
+              href="/participer"
+              className="bg-yellow-400 text-black font-bold px-8 py-4 rounded-full hover:bg-yellow-300 transition"
+            >
+              🎤 PARTICIPER À L&apos;ÉMISSION
+            </Link>
+            {config.prochaine_emission_lien_live && (
+              <a
+                href={config.prochaine_emission_lien_live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-red-500 text-white font-bold px-8 py-4 rounded-full hover:bg-red-600 transition"
+              >
+                🔴 REJOINDRE LE LIVE
+              </a>
             )}
+            <Link
+              href="/questions"
+              className="border-2 border-yellow-400 text-yellow-400 font-bold px-8 py-4 rounded-full hover:bg-yellow-400 hover:text-black transition"
+            >
+              🗣️ POSER UNE QUESTION
+            </Link>
+          </div>
+        </div>
+      </div>
 
-            {/* Contenu superposé */}
-            <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12 text-center md:text-left">
-              <div className="inline-block self-center md:self-start bg-red-500 text-white font-bold text-xs px-4 py-1.5 rounded-full mb-4 animate-pulse">
+      {/* 📱 VERSION MOBILE — Affiche en haut, contenu en dessous */}
+      <div className="md:hidden">
+        {/* Affiche */}
+        {config.prochaine_emission_affiche_url ? (
+          <div className="relative w-full aspect-video">
+            <Image
+              src={config.prochaine_emission_affiche_url}
+              alt="Affiche prochaine émission"
+              fill
+              className="object-cover"
+              unoptimized
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+            <div className="absolute bottom-4 left-4">
+              <span className="bg-red-500 text-white font-bold text-xs px-3 py-1.5 rounded-full animate-pulse">
                 🔴 PROCHAINE ÉMISSION
-              </div>
-
-              <h2 className="text-2xl md:text-5xl font-extrabold mb-3 drop-shadow-lg">
-                {dateFormatee}
-              </h2>
-
-              {config.prochaine_emission_theme && (
-                <p className="text-white/90 text-base md:text-xl max-w-3xl mb-2">
-                  <strong className="text-yellow-400">Thème :</strong>{" "}
-                  {config.prochaine_emission_theme}
-                </p>
-              )}
-
-              {config.prochaine_emission_invites && (
-                <p className="text-white/70 text-sm md:text-base max-w-3xl mb-6">
-                  {config.prochaine_emission_invites}
-                </p>
-              )}
-
-              {/* COMPTE À REBOURS */}
-              <div className="grid grid-cols-4 gap-2 md:gap-3 max-w-lg mx-auto md:mx-0 mb-6">
-                {[
-                  { label: "JOURS", value: tempsRestant.jours },
-                  { label: "HEURES", value: tempsRestant.heures },
-                  { label: "MIN", value: tempsRestant.minutes },
-                  { label: "SEC", value: tempsRestant.secondes },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="bg-black/70 backdrop-blur border border-yellow-400/40 rounded-xl py-2 md:py-3"
-                  >
-                    <div className="text-xl md:text-3xl font-extrabold text-yellow-400">
-                      {String(item.value).padStart(2, "0")}
-                    </div>
-                    <div className="text-[10px] md:text-xs text-white/60 mt-1">
-                      {item.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* BOUTONS */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-                <Link
-                  href="/participer"
-                  className="bg-yellow-400 text-black font-bold px-6 md:px-8 py-3 md:py-4 rounded-full hover:bg-yellow-300 transition text-sm md:text-base"
-                >
-                  🎤 PARTICIPER À L&apos;ÉMISSION
-                </Link>
-                {config.prochaine_emission_lien_live && (
-                  <a
-                    href={config.prochaine_emission_lien_live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-red-500 text-white font-bold px-6 md:px-8 py-3 md:py-4 rounded-full hover:bg-red-600 transition text-sm md:text-base"
-                  >
-                    🔴 REJOINDRE LE LIVE
-                  </a>
-                )}
-                <Link
-                  href="/questions"
-                  className="border-2 border-yellow-400 text-yellow-400 font-bold px-6 md:px-8 py-3 md:py-4 rounded-full hover:bg-yellow-400 hover:text-black transition text-sm md:text-base"
-                >
-                  🗣️ POSER UNE QUESTION
-                </Link>
-              </div>
+              </span>
             </div>
           </div>
-        </section>
-      )}
+        ) : (
+          <div className="w-full aspect-video bg-gradient-to-br from-[#0F0F1A] via-[#1A1A2E] to-purple-900/30 flex items-center justify-center">
+            <span className="bg-red-500 text-white font-bold text-xs px-3 py-1.5 rounded-full animate-pulse">
+              🔴 PROCHAINE ÉMISSION
+            </span>
+          </div>
+        )}
+
+        {/* Contenu en dessous (mobile) */}
+        <div className="p-5 text-center bg-black/40">
+          <h2 className="text-2xl font-extrabold mb-3">
+            {dateFormatee}
+          </h2>
+
+          {config.prochaine_emission_theme && (
+            <p className="text-white/90 text-sm mb-2">
+              <strong className="text-yellow-400">Thème :</strong>{" "}
+              {config.prochaine_emission_theme}
+            </p>
+          )}
+
+          {config.prochaine_emission_invites && (
+            <p className="text-white/70 text-xs mb-5">
+              {config.prochaine_emission_invites}
+            </p>
+          )}
+
+          {/* Compte à rebours mobile */}
+          <div className="grid grid-cols-4 gap-2 mb-5">
+            {[
+              { label: "JOURS", value: tempsRestant.jours },
+              { label: "HEURES", value: tempsRestant.heures },
+              { label: "MIN", value: tempsRestant.minutes },
+              { label: "SEC", value: tempsRestant.secondes },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="bg-[#0F0F1A] border border-yellow-400/40 rounded-xl py-2"
+              >
+                <div className="text-xl font-extrabold text-yellow-400">
+                  {String(item.value).padStart(2, "0")}
+                </div>
+                <div className="text-[10px] text-white/60 mt-0.5">
+                  {item.label}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Boutons mobile empilés */}
+          <div className="flex flex-col gap-3">
+            <Link
+              href="/participer"
+              className="bg-yellow-400 text-black font-bold px-6 py-3.5 rounded-full hover:bg-yellow-300 transition text-sm"
+            >
+              🎤 PARTICIPER À L&apos;ÉMISSION
+            </Link>
+            {config.prochaine_emission_lien_live && (
+              <a
+                href={config.prochaine_emission_lien_live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-red-500 text-white font-bold px-6 py-3.5 rounded-full hover:bg-red-600 transition text-sm"
+              >
+                🔴 REJOINDRE LE LIVE
+              </a>
+            )}
+            <Link
+              href="/questions"
+              className="border-2 border-yellow-400 text-yellow-400 font-bold px-6 py-3.5 rounded-full hover:bg-yellow-400 hover:text-black transition text-sm"
+            >
+              🗣️ POSER UNE QUESTION
+            </Link>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+)}
 
       {/* ÉVÉNEMENTS À VENIR */}
       {evenements.length > 0 && (
