@@ -1,9 +1,9 @@
 export default function Footer() {
   return (
-    <footer className="px-6 py-10 border-t border-white/10 text-center text-sm text-white/50 mt-auto">
+    <footer className="px-6 py-10 border-t border-gray-200 bg-green-50 text-center text-sm text-gray-600 mt-auto">
       © {new Date().getFullYear()} Campus Vibes — USSEIN Fatick
       <br />
-      <span className="text-yellow-400/80">
+      <span className="text-green-700 font-bold">
         Les étudiants, leurs voix, leurs histoires.
       </span>
     </footer>

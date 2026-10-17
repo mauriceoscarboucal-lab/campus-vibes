@@ -113,9 +113,9 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#0F0F1A] text-white">
+    <main className="min-h-screen bg-white text-gray-900">
       {/* HEADER */}
-      <header className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#0F0F1A] sticky top-0 z-50">
+      <header className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white sticky top-0 z-50">
         <Link href="/" className="flex items-center gap-3">
           <Image
             src="/logo.png"
@@ -124,11 +124,11 @@ export default function Home() {
             height={50}
             className="rounded-xl"
           />
-          <span className="font-bold text-lg tracking-tight text-white">
+          <span className="font-bold text-lg tracking-tight text-gray-900">
             CAMPUS VIBES
           </span>
         </Link>
-        <nav className="hidden md:flex gap-5 text-sm text-white/80">
+        <nav className="hidden md:flex gap-5 text-sm text-gray-900/80">
           <Link href="/" className="hover:text-yellow-400 transition">Accueil</Link>
           <Link href="/emissions" className="hover:text-yellow-400 transition">Émissions</Link>
           <Link href="/participer" className="hover:text-yellow-400 transition">Participer</Link>
@@ -146,8 +146,8 @@ export default function Home() {
           Les étudiants, <span className="text-yellow-400">leurs voix</span>,<br />
           leurs histoires.
         </h1>
-        <p className="text-white/70 max-w-2xl mx-auto mb-10 text-lg">
-          Bienvenue dans <strong className="text-white">Campus Vibes</strong>, le rendez-vous
+        <p className="text-gray-900/70 max-w-2xl mx-auto mb-10 text-lg">
+          Bienvenue dans <strong className="text-gray-900">Campus Vibes</strong>, le rendez-vous
           hebdomadaire des étudiants du Campus Fatick.
         </p>
       </section>
@@ -177,7 +177,7 @@ export default function Home() {
 
         {/* Contenu superposé (desktop) */}
         <div className="absolute inset-0 flex flex-col justify-end p-12 text-left">
-          <div className="inline-block self-start bg-red-500 text-white font-bold text-xs px-4 py-1.5 rounded-full mb-4 animate-pulse">
+          <div className="inline-block self-start bg-red-500 text-gray-900 font-bold text-xs px-4 py-1.5 rounded-full mb-4 animate-pulse">
             🔴 PROCHAINE ÉMISSION
           </div>
 
@@ -186,14 +186,14 @@ export default function Home() {
           </h2>
 
           {config.prochaine_emission_theme && (
-            <p className="text-white/90 text-xl max-w-3xl mb-2">
+            <p className="text-gray-900/90 text-xl max-w-3xl mb-2">
               <strong className="text-yellow-400">Thème :</strong>{" "}
               {config.prochaine_emission_theme}
             </p>
           )}
 
           {config.prochaine_emission_invites && (
-            <p className="text-white/70 text-base max-w-3xl mb-6">
+            <p className="text-gray-900/70 text-base max-w-3xl mb-6">
               {config.prochaine_emission_invites}
             </p>
           )}
@@ -212,7 +212,7 @@ export default function Home() {
                 <div className="text-3xl font-extrabold text-yellow-400">
                   {String(item.value).padStart(2, "0")}
                 </div>
-                <div className="text-xs text-white/60 mt-1">{item.label}</div>
+                <div className="text-xs text-gray-900/60 mt-1">{item.label}</div>
               </div>
             ))}
           </div>
@@ -229,7 +229,7 @@ export default function Home() {
                 href={config.prochaine_emission_lien_live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-red-500 text-white font-bold px-8 py-4 rounded-full hover:bg-red-600 transition"
+                className="bg-red-500 text-gray-900 font-bold px-8 py-4 rounded-full hover:bg-red-600 transition"
               >
                 🔴 REJOINDRE LE LIVE
               </a>
@@ -259,14 +259,14 @@ export default function Home() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
             <div className="absolute bottom-4 left-4">
-              <span className="bg-red-500 text-white font-bold text-xs px-3 py-1.5 rounded-full animate-pulse">
+              <span className="bg-red-500 text-gray-900 font-bold text-xs px-3 py-1.5 rounded-full animate-pulse">
                 🔴 PROCHAINE ÉMISSION
               </span>
             </div>
           </div>
         ) : (
           <div className="w-full aspect-video bg-gradient-to-br from-[#0F0F1A] via-[#1A1A2E] to-purple-900/30 flex items-center justify-center">
-            <span className="bg-red-500 text-white font-bold text-xs px-3 py-1.5 rounded-full animate-pulse">
+            <span className="bg-red-500 text-gray-900 font-bold text-xs px-3 py-1.5 rounded-full animate-pulse">
               🔴 PROCHAINE ÉMISSION
             </span>
           </div>
@@ -279,14 +279,14 @@ export default function Home() {
           </h2>
 
           {config.prochaine_emission_theme && (
-            <p className="text-white/90 text-sm mb-2">
+            <p className="text-gray-900/90 text-sm mb-2">
               <strong className="text-yellow-400">Thème :</strong>{" "}
               {config.prochaine_emission_theme}
             </p>
           )}
 
           {config.prochaine_emission_invites && (
-            <p className="text-white/70 text-xs mb-5">
+            <p className="text-gray-900/70 text-xs mb-5">
               {config.prochaine_emission_invites}
             </p>
           )}
@@ -301,12 +301,12 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="bg-[#0F0F1A] border border-yellow-400/40 rounded-xl py-2"
+                className="bg-white border border-yellow-400/40 rounded-xl py-2"
               >
                 <div className="text-xl font-extrabold text-yellow-400">
                   {String(item.value).padStart(2, "0")}
                 </div>
-                <div className="text-[10px] text-white/60 mt-0.5">
+                <div className="text-[10px] text-gray-900/60 mt-0.5">
                   {item.label}
                 </div>
               </div>
@@ -326,7 +326,7 @@ export default function Home() {
                 href={config.prochaine_emission_lien_live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-red-500 text-white font-bold px-6 py-3.5 rounded-full hover:bg-red-600 transition text-sm"
+                className="bg-red-500 text-gray-900 font-bold px-6 py-3.5 rounded-full hover:bg-red-600 transition text-sm"
               >
                 🔴 REJOINDRE LE LIVE
               </a>
@@ -386,7 +386,7 @@ export default function Home() {
             <Link
               key={rub.titre}
               href={rub.href}
-              className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center hover:border-yellow-400/50 transition block"
+              className="bg-gray-50 shadow-sm border border-white/10 rounded-2xl p-5 text-center hover:border-yellow-400/50 transition block"
             >
               <div className="text-3xl mb-2">{rub.emoji}</div>
               <div className="text-sm font-semibold">{rub.titre}</div>
@@ -396,7 +396,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="px-6 py-10 border-t border-white/10 text-center text-sm text-white/50">
+      <footer className="px-6 py-10 border-t border-white/10 text-center text-sm text-gray-900/50">
         © {new Date().getFullYear()} Campus Vibes — USSEIN Fatick
         <br />
         <span className="text-yellow-400/80">
@@ -405,7 +405,7 @@ export default function Home() {
         <div className="mt-4">
           <Link
             href="/admin"
-            className="text-xs text-white/20 hover:text-yellow-400/60 transition"
+            className="text-xs text-gray-900/20 hover:text-yellow-400/60 transition"
           >
             🔐 Espace équipe
           </Link>
