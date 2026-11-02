@@ -40,6 +40,7 @@ export default function TalentsPage() {
       type_talent: talentChoisi,
       description: formData.get("description") as string,
       lien_externe: (formData.get("lien_externe") as string) || null,
+      email: formData.get("email") as string
     });
 
     setChargement(false);
@@ -49,6 +50,10 @@ export default function TalentsPage() {
       setErreur("Oups, une erreur s'est produite. Réessaie.");
       return;
     }
+    await fetch("/api/send-email", {
+  method: "POST", headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ to: formData.get("email"), nom: formData.get("prenom"), type: "talent" }),
+});
 
     setEnvoye(true);
   }
@@ -66,7 +71,7 @@ export default function TalentsPage() {
         </h1>
         <p className="text-white/70 text-center mb-10">
           Tu as un talent à partager ? Musique, slam, danse, code, art…
-          Propose-le et tu pourrais être le <strong className="text-yellow-400">Talent de la semaine</strong> sur Campus Vibes !
+          Propose-le et tu pourrais être le <strong className="text-yellow-400">Talent de la semaine</strong> sur USSEIN 360 !
         </p>
 
         {envoye ? (
@@ -74,7 +79,7 @@ export default function TalentsPage() {
             <div className="text-5xl mb-4">⭐</div>
             <h2 className="text-2xl font-bold mb-3 text-yellow-400">Candidature reçue !</h2>
             <p className="text-white/80">
-              Merci ! L&apos;équipe de Campus Vibes étudiera ta proposition.
+              Merci ! L&apos;équipe de USSEIN 360 étudiera ta proposition.
               Si ton talent est retenu, tu seras contacté pour la rubrique <strong>Talent de la semaine</strong>.
             </p>
           </div>
@@ -109,6 +114,10 @@ export default function TalentsPage() {
             <div>
               <label className="block text-sm font-semibold mb-2">Téléphone / WhatsApp *</label>
               <input type="tel" name="telephone" required placeholder="+221 ..." className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none" />
+              <div>
+  <label className="block text-sm font-semibold mb-2">Adresse Email *</label>
+  <input type="email" name="email" required placeholder="ton.email@exemple.com" className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none" />
+</div>
             </div>
 
             <div>

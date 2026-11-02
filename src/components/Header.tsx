@@ -3,17 +3,17 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between px-6 py-4 border-b-2 border-green-600 bg-white sticky top-0 z-50">
+    <header className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#0F0F1A] sticky top-0 z-50">
       <Link href="/" className="flex items-center gap-3">
         <Image
           src="/logo.png"
-          alt="Campus Vibes"
+          alt="USSEIN 360"
           width={50}
           height={50}
           className="rounded-xl"
         />
         <span className="font-bold text-lg tracking-tight text-white">
-          CAMPUS VIBES
+          USSEIN 360
         </span>
       </Link>
 

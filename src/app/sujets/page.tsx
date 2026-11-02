@@ -24,6 +24,7 @@ export default function SujetsPage() {
       niveau: formData.get("niveau") as string,
       titre: formData.get("titre") as string,
       description: formData.get("description") as string,
+      email: formData.get("email") as string
     });
 
     setChargement(false);
@@ -33,6 +34,10 @@ export default function SujetsPage() {
       setErreur("Oups, une erreur s'est produite. Réessaie dans un instant.");
       return;
     }
+    await fetch("/api/send-email", {
+  method: "POST", headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ to: formData.get("email"), nom: formData.get("prenom"), type: "sujet" }),
+});
 
     setEnvoye(true);
   }
@@ -91,6 +96,10 @@ export default function SujetsPage() {
                   className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none"
                 />
               </div>
+              <div>
+  <label className="block text-sm font-semibold mb-2">Adresse Email *</label>
+  <input type="email" name="email" required placeholder="ton.email@exemple.com" className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none" />
+</div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-5">

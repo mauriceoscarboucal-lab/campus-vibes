@@ -130,7 +130,7 @@ export default function ActualitesPage() {
           </h2>
           <p className="text-black/80 mb-6 max-w-lg mx-auto">
             Associations, clubs, initiatives étudiantes : fais connaître ton
-            événement sur Campus Vibes.
+            événement sur USSEIN 360.
           </p>
           <Link
             href="/participer"

@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
             <div className="text-5xl mb-4">🔐</div>
             <h1 className="text-2xl font-extrabold mb-2">Espace Admin</h1>
             <p className="text-white/60 text-sm">
-              Réservé à l&apos;équipe de Campus Vibes
+              Réservé à l&apos;équipe de USSEIN 360
             </p>
           </div>
 
@@ -97,7 +97,7 @@ export default function AdminLoginPage() {
         </div>
 
         <p className="text-center text-white/40 text-xs mt-6">
-          © {new Date().getFullYear()} Campus Vibes — USSEIN Fatick
+          © {new Date().getFullYear()} USSEIN 360 — USSEIN Fatick
         </p>
       </div>
     </main>

@@ -24,6 +24,7 @@ export default function QuestionsPage() {
       niveau: formData.get("niveau") as string,
       categorie: formData.get("categorie") as string,
       question: formData.get("question") as string,
+      email: formData.get("email") as string
     });
 
     setChargement(false);
@@ -33,6 +34,10 @@ export default function QuestionsPage() {
       setErreur("Oups, une erreur s'est produite. Réessaie dans un instant.");
       return;
     }
+    await fetch("/api/send-email", {
+  method: "POST", headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ to: formData.get("email"), nom: formData.get("nom"), type: "question" }),
+});
 
     setEnvoye(true);
   }
@@ -61,7 +66,7 @@ export default function QuestionsPage() {
               Question envoyée !
             </h2>
             <p className="text-white/80">
-              Merci ! Ta question a bien été transmise à l&apos;équipe de Campus Vibes.
+              Merci ! Ta question a bien été transmise à l&apos;équipe de USSEIN 360.
               Elle pourra être traitée lors de la prochaine émission.
             </p>
           </div>
@@ -78,6 +83,8 @@ export default function QuestionsPage() {
                 placeholder="Prénom + Nom"
                 className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none"
               />
+              <label className="block text-sm font-semibold mb-2">Email (pour te répondre)</label>
+<input type="email" name="email" required placeholder="ton.email@exemple.com" className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none" />
             </div>
 
             <label className="flex items-start gap-3 cursor-pointer bg-white/5 border border-white/15 rounded-xl px-4 py-3">

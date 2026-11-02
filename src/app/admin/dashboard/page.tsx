@@ -12,6 +12,7 @@ type Candidature = {
   filiere: string;
   niveau: string;
   telephone: string;
+  email: string | null;
   rubrique: string;
   motivation: string;
   presentation: string;
@@ -135,16 +136,49 @@ export default function AdminDashboardPage() {
     router.push("/admin");
   }
 
-  async function changerStatut(
+      async function changerStatut(
     table: "candidatures" | "questions" | "sujets" | "inscriptions_jeux" | "talents",
     id: string,
     nouveauStatut: string
   ) {
     setActionEnCours(id);
+    
+    // On met à jour la base de données
     const { error } = await supabase.from(table).update({ statut: nouveauStatut }).eq("id", id);
+    
     if (error) {
       alert("Erreur : " + error.message);
     } else {
+      // 🚀 Si on vient de cliquer sur "Sélectionner" pour une candidature, on envoie le mail !
+      if (table === "candidatures" && nouveauStatut === "selectionne") {
+        // On récupère les infos de l'étudiant pour l'email
+        const candidat = candidatures.find((c) => c.id === id);
+        
+        if (candidat && candidat.email) {
+          try {
+            // On récupère d'abord le thème de la prochaine émission
+            const { data: configData } = await supabase.from("config").select("prochaine_emission_theme").eq("id", 1).single();
+            const theme = configData?.prochaine_emission_theme || "Émission USSEIN 360";
+
+            await fetch("/api/send-email", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    to: candidat.email,
+    nom: `${candidat.prenom} ${candidat.nom}`,
+    type: "selection",
+    rubrique: candidat.rubrique, // 👈 On envoie la rubrique choisie
+  }),
+});
+            alert("✅ Statut mis à jour et email de sélection envoyé à l'étudiant !");
+          } catch (e) {
+            console.error("Erreur envoi mail:", e);
+            alert("Statut mis à jour, mais l'email n'a pas pu être envoyé.");
+          }
+        } else {
+          alert("Statut mis à jour. ⚠️ Impossible d'envoyer l'email : l'étudiant n'a pas laissé d'adresse email.");
+        }
+      }
       await chargerDonnees();
     }
     setActionEnCours(null);
@@ -219,7 +253,7 @@ export default function AdminDashboardPage() {
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 flex-wrap">
           <Link href="/" className="flex items-center gap-3">
             <span className="text-2xl">🎙️</span>
-            <span className="font-bold">CAMPUS VIBES — ADMIN</span>
+            <span className="font-bold">USSEIN 360 — ADMIN</span>
           </Link>
           <div className="flex items-center gap-3 flex-wrap">
             <div className="text-sm text-white/70 hidden md:block text-right leading-tight">
@@ -277,7 +311,7 @@ export default function AdminDashboardPage() {
       <div className="max-w-7xl mx-auto px-6 py-8">
         <h1 className="text-2xl md:text-3xl font-extrabold mb-2">Tableau de bord</h1>
         <p className="text-white/50 text-sm mb-8">
-          Gère les contenus de Campus Vibes — tout ce qui arrive du site public
+          Gère les contenus de USSEIN 360 — tout ce qui arrive du site public
         </p>
 
         {/* ONGLETS */}

@@ -37,6 +37,7 @@ export default function JeuxPage() {
       filiere: formData.get("filiere") as string,
       niveau: formData.get("niveau") as string,
       telephone: formData.get("telephone") as string,
+      email: formData.get("email") as string
     });
 
     setChargement(false);
@@ -46,6 +47,10 @@ export default function JeuxPage() {
       setErreur("Oups, une erreur s'est produite. Réessaie.");
       return;
     }
+    await fetch("/api/send-email", {
+  method: "POST", headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ to: formData.get("email"), nom: formData.get("nom"), type: "jeu" }),
+});
 
     setEnvoye(true);
   }
@@ -68,7 +73,7 @@ export default function JeuxPage() {
           Entre dans le jeu
         </h1>
         <p className="text-white/70 text-center mb-12 max-w-2xl mx-auto">
-          Participe aux jeux et challenges de Campus Vibes. Choisis ton jeu,
+          Participe aux jeux et challenges de USSEIN 360. Choisis ton jeu,
           inscris-toi, et montre de quoi tu es capable pendant l&apos;émission !
         </p>
 
@@ -120,6 +125,7 @@ export default function JeuxPage() {
                     </select>
                   </div>
                   <input type="tel" name="telephone" placeholder="Téléphone / WhatsApp *" required className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none" />
+                  <input type="email" name="email" placeholder="Email *" required className="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:border-yellow-400 focus:outline-none" />
                   {erreur && <div className="bg-red-500/10 border border-red-500 rounded-xl p-3 text-red-400 text-sm">⚠️ {erreur}</div>}
                   <button type="submit" disabled={chargement} className="w-full bg-yellow-400 text-black font-bold py-3 rounded-full hover:bg-yellow-300 transition disabled:opacity-50">
                     {chargement ? "ENVOI..." : "CONFIRMER MON INSCRIPTION"}

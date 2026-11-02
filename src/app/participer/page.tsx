@@ -23,6 +23,7 @@ export default function ParticiperPage() {
       filiere: formData.get("filiere") as string,
       niveau: formData.get("niveau") as string,
       telephone: formData.get("telephone") as string,
+      email: formData.get("email") as string,
       rubrique: formData.get("rubrique") as string,
       motivation: formData.get("motivation") as string,
       presentation: formData.get("presentation") as string,
@@ -35,6 +36,26 @@ export default function ParticiperPage() {
       setErreur("Oups, une erreur s'est produite. Réessaie dans un instant.");
       return;
     }
+            // Envoi de l'email de confirmation
+    const nomComplet = `${formData.get("prenom")} ${formData.get("nom")}`;
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to: formData.get("email"),
+          nom: nomComplet,
+          type: "participation", 
+        }),
+      });
+      
+      if (!response.ok) {
+        console.error("Erreur lors de l'envoi du mail de confirmation");
+      }
+    } catch (error) {
+      console.error("Erreur réseau:", error);
+    }
+
 
     setEnvoye(true);
   }
@@ -48,7 +69,7 @@ export default function ParticiperPage() {
           🎤 REJOINS L&apos;ÉMISSION
         </p>
         <h1 className="text-3xl md:text-5xl font-extrabold text-center mb-4">
-          Participer à Campus Vibes
+          Participer à USSEIN 360
         </h1>
         <p className="text-white/70 text-center mb-10">
           Remplis ce formulaire et l&apos;équipe te contactera pour la prochaine émission.
@@ -61,7 +82,7 @@ export default function ParticiperPage() {
               Candidature envoyée !
             </h2>
             <p className="text-white/80">
-              Merci ! L&apos;équipe de Campus Vibes te contactera bientôt sur WhatsApp pour te
+              Merci ! L&apos;équipe de USSEIN 360 te contactera bientôt sur WhatsApp pour te
               confirmer ta participation.
             </p>
           </div>
@@ -82,6 +103,7 @@ export default function ParticiperPage() {
             </div>
 
             <Field label="Téléphone / WhatsApp" name="telephone" required placeholder="+221 ..." />
+            <Field label="Adresse Email" name="email" required placeholder="ton.email@exemple.com" />
 
             <Select
               label="Rubrique souhaitée"

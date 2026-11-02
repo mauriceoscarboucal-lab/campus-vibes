@@ -225,7 +225,7 @@ export default function EvenementsAdminPage() {
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4 flex-wrap">
           <Link href="/" className="flex items-center gap-3">
             <span className="text-2xl">🎙️</span>
-            <span className="font-bold">CAMPUS VIBES — ADMIN</span>
+            <span className="font-bold">USSEIN 360 — ADMIN</span>
           </Link>
           <div className="flex items-center gap-3 flex-wrap">
             {monProfil && (

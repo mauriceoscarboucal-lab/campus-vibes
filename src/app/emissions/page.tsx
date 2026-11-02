@@ -78,7 +78,7 @@ export default function EmissionsPage() {
           Toutes les émissions
         </h1>
         <p className="text-white/70 text-center mb-12 max-w-2xl mx-auto">
-          Retrouve tous les épisodes de Campus Vibes. Regarde, revise, partage !
+          Retrouve tous les épisodes de USSEIN 360. Regarde, revise, partage !
         </p>
 
         {/* PROCHAINE ÉMISSION — Bannière */}
